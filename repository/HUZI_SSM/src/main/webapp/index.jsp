@@ -13,7 +13,7 @@
 <p>ssm整合例子</p>
 <table>
     <tr>
-        <td><a href="addStudent.jsp"/> 注册</td>
+        <td><a href="addOrder.jsp"/> 新增采购记录 </td>
     </tr>
 
 
