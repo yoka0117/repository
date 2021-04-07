@@ -19,7 +19,7 @@
         select id,name,email,age from mybatis
     </select>
 
-    <insert id="insertOrder">
+    <insert id="insertOrder" parameterType="com.huzi.domain.Order">
         insert into t_order(sku_id,warehouse_id,order_amount,order_create_time,order_state,order_update_time)
         values(#{sku_id},#{warehouse_id},#{order_amount},#{order_create_time},#{order_state},#{order_update_time})
     </insert>

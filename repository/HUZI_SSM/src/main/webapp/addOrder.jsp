@@ -27,18 +27,9 @@ addStudent.jsp
             <td>数量：</td>
             <td><input type="text" name="order_amount"></td>
         </tr>
-        <tr>
-            <td>创建时间：</td>
-            <td><input type="text" name="order_create_time"></td>
-        </tr>
-        <tr>
-            <td>订单状态：</td>
-            <td><input type="text" name="order_state"></td>
-        </tr>
-        <tr>
-            <td>更新时间：</td>
-            <td><input type="text" name="order_update_time"></td>
-        </tr>
+
+
+
         <tr>
             <td><input type="submit" value="创建"></td>
         </tr>

@@ -18,7 +18,10 @@ public class OrderController {
     @RequestMapping("/insertOrder.do")
     public int insertOrder(Order order){
 
+        //todo 验证非空 数量>0
+
         int num = orderService.insertOrder(order);
+
 
         return num;
     }

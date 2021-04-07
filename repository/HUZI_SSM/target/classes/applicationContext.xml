@@ -20,6 +20,14 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="configLocation" value="classpath:mybatis.xml"/>
+        <property name="mapperLocations">
+            <array>
+
+                <!-- 配置多个映射文件使用 * 通配符 -->
+                <value>classpath:mybatis/*.xml</value>
+            </array>
+
+        </property>
     </bean>
 
     <!--声明mybatis扫描器，创建dao对象-->

@@ -1,14 +1,17 @@
 package com.huzi.domain;
 
+import java.util.Date;
+
 public class Order {
+
 
     private int order_id;
     private int sku_id;
     private int warehouse_id;
     private int order_amount;
-    private String order_create_time;
+    private Date order_create_time;
     private String order_state;
-    private String order_update_time;
+    private Date order_update_time;
 
     public int getOrder_id() {
         return order_id;
@@ -42,11 +45,11 @@ public class Order {
         this.order_amount = order_amount;
     }
 
-    public String getOrder_create_time() {
+    public Date getOrder_create_time() {
         return order_create_time;
     }
 
-    public void setOrder_create_time(String order_create_time) {
+    public void setOrder_create_time(Date order_create_time) {
         this.order_create_time = order_create_time;
     }
 
@@ -58,11 +61,11 @@ public class Order {
         this.order_state = order_state;
     }
 
-    public String getOrder_update_time() {
+    public Date getOrder_update_time() {
         return order_update_time;
     }
 
-    public void setOrder_update_time(String order_update_time) {
+    public void setOrder_update_time(Date order_update_time) {
         this.order_update_time = order_update_time;
     }
 }
