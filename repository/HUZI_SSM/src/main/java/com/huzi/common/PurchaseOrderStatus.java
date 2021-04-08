@@ -1,5 +1,5 @@
 package com.huzi.common;
 
-public enum  OrderStatus {
+public enum PurchaseOrderStatus {
     INIT,FINISH
 }

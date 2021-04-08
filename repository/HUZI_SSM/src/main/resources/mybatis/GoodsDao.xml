@@ -6,7 +6,7 @@
  namespace：必须有值，自定义的唯一字符串
  推荐使用：dao 接口的全限定名称
 -->
-<mapper namespace="com.huzi.dao.OrderDao">
+<mapper namespace="com.huzi.dao.GoodsDao">
     <!--
     <select>: 查询数据， 标签中必须是 select 语句
     id: sql 语句的自定义名称，推荐使用 dao 接口中方法名称，
@@ -19,8 +19,8 @@
         select id,name,email,age from mybatis
     </select>
 
-    <insert id="insertOrder" parameterType="com.huzi.domain.Order">
-        insert into t_order(sku_id,warehouse_id,order_amount,order_create_time,order_state,order_update_time)
-        values(#{sku_id},#{warehouse_id},#{order_amount},#{order_create_time},#{order_state},#{order_update_time})
+    <insert id="insertSKU" parameterType="com.huzi.domain.product.SKU">
+        insert into t_sku(goods_id,goods_name,goods_introduce)
+        values(#{goodsId},#{goodsName},#{goodsIntroduce})
     </insert>
 </mapper>

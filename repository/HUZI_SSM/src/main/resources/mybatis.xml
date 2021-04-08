@@ -7,7 +7,7 @@
 <configuration>
     <!--设置别名-->
     <typeAliases>
-        <package name="com.huzi.domain"/>
+        <package name="com.huzi.domain.*"/>
     </typeAliases>
 
 
