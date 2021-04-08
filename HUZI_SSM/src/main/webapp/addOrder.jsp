@@ -13,18 +13,25 @@ addStudent.jsp
     <base href="<%=basePath%>">
 </head>
 <body>
-<form action="student/addStudent.do" method="post">
+<form action="order/insertOrder.do" method="post">
     <table>
         <tr>
-            <td>姓名：</td>
-            <td><input type="text" name="name"></td>
+            <td>skuID:</td>
+            <td><input type="text" name="sku_id"></td>
         </tr>
         <tr>
-            <td>年龄：</td>
-            <td><input type="text" name="age"></td>
+            <td>仓库ID：</td>
+            <td><input type="text" name="warehouse_id"></td>
         </tr>
         <tr>
-            <td><input type="submit" value="注册"></td>
+            <td>数量：</td>
+            <td><input type="text" name="order_amount"></td>
+        </tr>
+
+
+
+        <tr>
+            <td><input type="submit" value="创建"></td>
         </tr>
     </table>
 </form>
