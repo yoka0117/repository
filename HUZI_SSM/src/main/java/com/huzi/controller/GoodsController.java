@@ -14,7 +14,7 @@ public class GoodsController {
     private GoodsService goodsService;
 
     //添加
-    @RequestMapping("/insertGoods")
+    @RequestMapping("/insertGoods.do" )
     public boolean insertGoods(Goods goods){
       boolean tip = false;
 

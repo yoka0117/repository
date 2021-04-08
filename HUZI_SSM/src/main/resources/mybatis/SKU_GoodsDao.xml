@@ -16,7 +16,7 @@
 
 <resultMap id="selectAll" type="com.huzi.domain.product.SKU_Goods">
 
-    <result property="goodsId" column="g.goods_id" ></result>
+    <result property="goodsId" column="goods_id" ></result>
     <result property="goodsName" column="g.goods_name" ></result>
     <result property="goodsIntroduce" column="g.goods_introduce"></result>
     <result property="skuId" column="s.sku_id" ></result>
@@ -27,13 +27,21 @@
 
     <select id="selectSKU_GoodsAll" resultMap="selectAll">
         select
-            s.sku_id,s.sku_size,s.sku_color,g.goods_id,g.goods_name,g.goods_introduce
+            s.sku_id ,s.sku_size,s.sku_color,g.goods_id,g.goods_name,g.goods_introduce
         from
             t_sku s
         join
             t_goods g
         on
             s.goods_id = g.goods_id
+    </select>
+
+    <select id="selectByGoodsId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        select
+          sku_id
+        from
+            t_sku s where goods_id = #{goodsId}
+
     </select>
 
 

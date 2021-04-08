@@ -15,12 +15,10 @@
     -->
 
 
-    <select id="" resultType="">
-        select id,name,email,age from mybatis
-    </select>
 
-    <insert id="insertSKU" parameterType="com.huzi.domain.product.SKU">
-        insert into t_sku(goods_id,goods_name,goods_introduce)
-        values(#{goodsId},#{goodsName},#{goodsIntroduce})
+
+    <insert id="insertGoods" >
+        insert into t_goods(goods_name,goods_introduce)
+        values(#{goodsName},#{goodsIntroduce})
     </insert>
 </mapper>

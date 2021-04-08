@@ -4,7 +4,7 @@ import com.huzi.domain.product.SKU;
 
 import java.util.List;
 
-public interface SKU_Dao {
+public interface SkuDao {
 
 
     //新增sku
@@ -12,4 +12,6 @@ public interface SKU_Dao {
 
     //查找sku
     List<SKU> selectSKU();
+
+    SKU selectSkuById(Integer skuId);
 }

@@ -22,7 +22,6 @@
         <property name="configLocation" value="classpath:mybatis.xml"/>
         <property name="mapperLocations">
             <array>
-
                 <!-- 配置多个映射文件使用 * 通配符 -->
                 <value>classpath:mybatis/*.xml</value>
             </array>

@@ -2,6 +2,7 @@ package com.huzi.service.impl;
 
 import com.huzi.common.PurchaseOrderStatus;
 import com.huzi.dao.PurchaseOrderDao;
+import com.huzi.dao.SkuDao;
 import com.huzi.domain.purchase.PurchaseOrder;
 import com.huzi.service.PurchaseOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +17,16 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     @Autowired
     private PurchaseOrderDao purchaseOrderDao;
 
+    @Autowired
+    private SkuDao skuDao;
 
     @Override
     public int insertOrder(PurchaseOrder purchaseOrder) {
-//todo 1.验证sku 仓库是存在 2.设置好creatTime 状态
 
+//todo 1.验证sku 仓库是存在 2.设置好creatTime 状态
+        if(skuDao.selectSkuById(purchaseOrder.getSku_Id() ) ==null ){
+            return 0;
+        }
         purchaseOrder.setPurchase_Create_Time(new Date());
         purchaseOrder.setPurchase_State(PurchaseOrderStatus.INIT.name());
         return purchaseOrderDao.insertPurchaseOrder(purchaseOrder);

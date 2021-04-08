@@ -6,7 +6,7 @@
  namespace：必须有值，自定义的唯一字符串
  推荐使用：dao 接口的全限定名称
 -->
-<mapper namespace="com.huzi.dao.StudentDao">
+<mapper namespace="com.huzi.dao.PurchaseOrderDao">
     <!--
     <select>: 查询数据， 标签中必须是 select 语句
     id: sql 语句的自定义名称，推荐使用 dao 接口中方法名称，
@@ -17,7 +17,8 @@
 
 
 
-    <insert id="addStudent" parameterType="com.huzi.domain.Student">
-        insert into t_student(name,age)values(#{name},#{age})
+    <insert id="insertPurchaseOrder" parameterType="com.huzi.domain.purchase.PurchaseOrder">
+        insert into t_purchase_order(sku_id,warehouse_id,purchase_amount,purchase_create_time,purchase_state,purchase_update_time)
+        values(#{sku_Id},#{warehouse_Id},#{purchase_Amount},#{purchase_Create_Time},#{purchase_State},#{purchase_Update_Time})
     </insert>
 </mapper>

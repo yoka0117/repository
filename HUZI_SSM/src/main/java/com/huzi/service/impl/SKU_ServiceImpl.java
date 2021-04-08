@@ -1,6 +1,6 @@
 package com.huzi.service.impl;
 
-import com.huzi.dao.SKU_Dao;
+import com.huzi.dao.SkuDao;
 import com.huzi.domain.product.SKU;
 import com.huzi.service.SKU_Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import java.util.List;
 public class SKU_ServiceImpl implements SKU_Service {
 
     @Autowired
-    private SKU_Dao sku_dao;
+    private SkuDao sku_dao;
 
     @Override
     public int insertSKU(SKU sku) {
