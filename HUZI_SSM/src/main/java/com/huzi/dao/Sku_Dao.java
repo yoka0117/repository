@@ -4,7 +4,7 @@ import com.huzi.domain.product.SKU;
 
 import java.util.List;
 
-public interface SkuDao {
+public interface Sku_Dao {
 
 
     //新增sku

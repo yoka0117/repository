@@ -5,68 +5,68 @@ import java.util.Date;
 public class PurchaseOrder {
 
 
-    private int purchase_Id;
-    private int sku_Id;
-    private int warehouse_Id;
-    private int purchase_Amount;
-    private Date purchase_Create_Time;
-    private String purchase_State;
-    private Date purchase_Update_Time;
+    private int purchaseId;
+    private int skuId;
+    private int warehouseId;
+    private int purchaseAmount;
+    private Date purchaseCreateTime;
+    private String purchaseState;
+    private Date purchaseUpdateTime;
 
-    public int getPurchase_Id() {
-        return purchase_Id;
+    public int getPurchaseId() {
+        return purchaseId;
     }
 
-    public void setPurchase_Id(int purchase_Id) {
-        this.purchase_Id = purchase_Id;
+    public void setPurchaseId(int purchaseId) {
+        this.purchaseId = purchaseId;
     }
 
-    public int getSku_Id() {
-        return sku_Id;
+    public int getSkuId() {
+        return skuId;
     }
 
-    public void setSku_Id(int sku_Id) {
-        this.sku_Id = sku_Id;
+    public void setSkuId(int skuId) {
+        this.skuId = skuId;
     }
 
-    public int getWarehouse_Id() {
-        return warehouse_Id;
+    public int getWarehouseId() {
+        return warehouseId;
     }
 
-    public void setWarehouse_Id(int warehouse_Id) {
-        this.warehouse_Id = warehouse_Id;
+    public void setWarehouseId(int warehouseId) {
+        this.warehouseId = warehouseId;
     }
 
-    public int getPurchase_Amount() {
-        return purchase_Amount;
+    public int getPurchaseAmount() {
+        return purchaseAmount;
     }
 
-    public void setPurchase_Amount(int purchase_Amount) {
-        this.purchase_Amount = purchase_Amount;
+    public void setPurchaseAmount(int purchaseAmount) {
+        this.purchaseAmount = purchaseAmount;
     }
 
-    public Date getPurchase_Create_Time() {
-        return purchase_Create_Time;
+    public Date getPurchaseCreateTime() {
+        return purchaseCreateTime;
     }
 
-    public void setPurchase_Create_Time(Date purchase_Create_Time) {
-        this.purchase_Create_Time = purchase_Create_Time;
+    public void setPurchaseCreateTime(Date purchaseCreateTime) {
+        this.purchaseCreateTime = purchaseCreateTime;
     }
 
-    public String getPurchase_State() {
-        return purchase_State;
+    public String getPurchaseState() {
+        return purchaseState;
     }
 
-    public void setPurchase_State(String purchase_State) {
-        this.purchase_State = purchase_State;
+    public void setPurchaseState(String purchaseState) {
+        this.purchaseState = purchaseState;
     }
 
-    public Date getPurchase_Update_Time() {
-        return purchase_Update_Time;
+    public Date getPurchaseUpdateTime() {
+        return purchaseUpdateTime;
     }
 
-    public void setPurchase_Update_Time(Date purchase_Update_Time) {
-        this.purchase_Update_Time = purchase_Update_Time;
+    public void setPurchaseUpdateTime(Date purchaseUpdateTime) {
+        this.purchaseUpdateTime = purchaseUpdateTime;
     }
 }
 
