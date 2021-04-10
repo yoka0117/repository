@@ -2,6 +2,7 @@ package com.huzi.dao;
 
 
 import com.huzi.domain.Warehouse.Inventory;
+import com.huzi.domain.Warehouse.InventoryParam;
 import org.apache.ibatis.annotations.Param;
 
 public interface InventoryDao {
@@ -13,7 +14,7 @@ public interface InventoryDao {
 
 
     //2增加库存
-    int updateInventory(Inventory inventory);
+    int updateInventory(InventoryParam inventory);
 
 
     //根据skuid和warehouseid查询

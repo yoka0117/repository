@@ -55,8 +55,9 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
 
     //4查询订单状态
-    @Override
-    public String checkState(Integer purchaseId) {
+        @Override
+        public String checkState(Integer purchaseId) {
+
         return purchaseOrderDao.checkState(purchaseId);
     }
 

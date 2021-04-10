@@ -18,9 +18,6 @@ public class InventoryController {
     private InventoryService inventoryService;
 
 
-
-
-
     //1新建商品库存
     @RequestMapping("/insertInventory.do")
     public ModelAndView insertInventory(Inventory inventory){

@@ -37,8 +37,8 @@
 
 
     <!--2增加库存-->
-    <update id="updateInventory" parameterType="com.huzi.domain.Warehouse.Inventory">
-        update t_inventory set inventory_physical =#{Physical_Inventory},inventory_real=#{Real_Inventory}
+    <update id="updateInventory" parameterType="com.huzi.domain.Warehouse.InventoryParam">
+         update t_inventory set inventory_physical =inventory_physical + #{physicalInventoryAdd},inventory_real=inventory_real + #{realInventoryAdd}
         where inventory_id = #{inventoryId}
     </update>
 </mapper>

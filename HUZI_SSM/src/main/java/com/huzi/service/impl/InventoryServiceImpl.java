@@ -31,8 +31,11 @@ private InventoryDao inventoryDao;
         inventory1.setWarehouseId(warehouseId);
 
         if(inventoryDao.selectBySkuWarehouse(inventory1)== null){
-            num = inventoryDao.insertInventory(inventory);
+            num = inventoryDao.insertInventory(inventory1);
         }else {
+            //1.查询当前库存=10
+            //2.计算采购完结后的库存 = 10 + 5 =15
+            //3.更新库存 库存=15
             num =  inventoryDao.updateInventory(inventory);
         }
 
