@@ -53,8 +53,8 @@
     </select>
 
 
-    <!--更改订单状态-->
-    <update id="finishPurchaseById" parameterType="java.lang.Integer" >
-        update t_purchase_order set purchase_state = #{purchaseState} where purchase_id = #{purchaseId}
+    <!--5完成订单FINISH-->
+    <update id="finishPurchase" parameterType="com.huzi.domain.purchase.PurchaseOrder" >
+        update t_purchase_order set purchase_state = #{purchaseState} ,purchase_update_time = #{purchaseUpdateTime}where purchase_id = #{purchaseId}
     </update>
 </mapper>

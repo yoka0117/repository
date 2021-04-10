@@ -17,7 +17,7 @@ public class PurchaseOrderController {
     @Autowired
     private PurchaseOrderService purchaseOrderService;
 
-    //新建采购订单
+    //1新建采购订单
     @RequestMapping("/insertPurchase.do")
     public ModelAndView insertOrder(PurchaseOrder purchaseOrder){
         ModelAndView mv = new ModelAndView();
@@ -39,7 +39,7 @@ public class PurchaseOrderController {
     }
 
 
-    //查询采购单 **
+    //2查询采购单 **
     @RequestMapping("/selectPurchase.do")
     public ModelAndView selectPurchase(){
         ModelAndView mv = new ModelAndView();
@@ -50,7 +50,7 @@ public class PurchaseOrderController {
         return  mv;
     }
 
-    //按订单号查询采购单 **
+    //3按订单号查询采购单 **
     @RequestMapping("/selectPurchaseById.do")
     public ModelAndView selectPurchaseById(Integer purchaseId){
         ModelAndView mv = new ModelAndView();
@@ -62,7 +62,7 @@ public class PurchaseOrderController {
     }
 
 
-    //查询订单是否完成 **
+    //4查询订单状态 **
     @RequestMapping("/checkPurchaseState.do")
     public ModelAndView checkPurchaseState(Integer purchaseId){
         ModelAndView mv = new ModelAndView();
@@ -77,19 +77,23 @@ public class PurchaseOrderController {
     }
 
 
-    //完成订单**
+    //5完成订单FINISH**
     @RequestMapping("/finishPurchaseState.do")
-    public ModelAndView finishPurchaseState(Integer purchaseId,String purchaseState){
+    public ModelAndView finishPurchaseState(Integer purchaseId){
         ModelAndView mv = new ModelAndView();
         String tip = null;
 
-
-
+        int num = purchaseOrderService.finishPurchaseState(purchaseId);
+        if(num > 0){
+            tip = "已设置成完结";
+        }
 
         mv.addObject("result",tip);
         mv.setViewName("result");
         return mv;
     }
+
+
 
 
 

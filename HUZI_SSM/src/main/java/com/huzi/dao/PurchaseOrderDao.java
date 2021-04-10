@@ -9,26 +9,26 @@ public interface PurchaseOrderDao {
 
 
 
-        //创建（新增）采购订单
+        //1创建（新增）采购订单
         int insertPurchaseOrder(PurchaseOrder purchaseOrder);
 
 
 
-        //查询所有采购单
+        //2查询所有采购单
         List<PurchaseOrder> selectPurchaseOrder();
 
 
-        //查询采购单（根据订单号）
+        //3查询采购单（根据订单号）
         PurchaseOrder selectPurchaseOrderById(Integer  purchaseId);
 
 
-        //查看采购单是否完单
+        //4查询订单状态
         String checkState(Integer  purchaseId);
 
 
 
-        //完成订单，update for state
-        int finishPurchaseById(Integer purchaseId);
+        //5完成订单FINISH， update for state
+        int finishPurchase(PurchaseOrder purchaseOrder);
     }
 
 

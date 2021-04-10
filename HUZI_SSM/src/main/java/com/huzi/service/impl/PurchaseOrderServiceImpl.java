@@ -22,7 +22,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     private Sku_Dao skuDao;
 
 
-    //新增采购单
+    //1新增采购单
     @Override
     public int insertOrder(PurchaseOrder purchaseOrder) {
 
@@ -37,7 +37,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     }
 
 
-    //查询所有采购单
+    //2查询所有采购单
     @Override
     public List<PurchaseOrder> selectPurchaseOrder() {
 
@@ -45,7 +45,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     }
 
 
-    //查询采购单（根据订单号）
+    //3查询采购单（根据订单号）
     @Override
     public PurchaseOrder selectPurchaseOrderById(Integer purchaseId) {
 
@@ -54,9 +54,26 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
 
 
-    //查看采购单是否完单
+    //4查询订单状态
     @Override
     public String checkState(Integer purchaseId) {
         return purchaseOrderDao.checkState(purchaseId);
     }
+
+
+
+    //5完成订单FINISH
+    @Override
+    public int finishPurchaseState(Integer purchaseId) {
+
+        PurchaseOrder purchaseOrder = new PurchaseOrder();
+        purchaseOrder.setPurchaseId(purchaseId);
+        purchaseOrder.setPurchaseUpdateTime(new Date());
+        purchaseOrder.setPurchaseState(PurchaseOrderStatus.FINISH.name());
+        int num = purchaseOrderDao.finishPurchase(purchaseOrder);
+        return num;
+    }
+
+
+
 }
