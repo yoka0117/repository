@@ -27,6 +27,8 @@ public class InventoryController {
         ModelAndView mv = new ModelAndView();
         String tip = "新增失败";
 
+
+
         int num = inventoryService.insertInventory(inventory);
         if (num > 0 ) {
             tip = "新增成功";
