@@ -1,7 +1,7 @@
 package com.huzi.controller;
 
-import com.huzi.domain.product.SKU_Goods;
-import com.huzi.service.SKU_GoodsService;
+import com.huzi.domain.product.SkuGoods;
+import com.huzi.service.SkuGoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,18 +11,18 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/sku_goods")
-public class SKU_GoodsController {
+public class SkuGoodsController {
 
     @Autowired
-    private SKU_GoodsService sku_goodsService;
+    private SkuGoodsService skuGoodsService;
 
-
+        //1查看所有商品 sku + goods 详情 ***
     @RequestMapping("/selectAll.do")
     public ModelAndView selectAll(){
 
         ModelAndView mv = new ModelAndView();
 
-        List<SKU_Goods>  list = sku_goodsService.selectAll();
+        List<SkuGoods>  list = skuGoodsService.selectAll();
 
         mv.addObject("result",list);
         mv.setViewName("result");

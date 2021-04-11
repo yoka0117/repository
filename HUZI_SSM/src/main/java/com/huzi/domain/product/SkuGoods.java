@@ -1,6 +1,6 @@
 package com.huzi.domain.product;
 
-public class SKU_Goods {
+public class SkuGoods {
 
     private int goodsId;
     private String goodsName;

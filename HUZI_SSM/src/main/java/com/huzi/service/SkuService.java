@@ -4,10 +4,10 @@ import com.huzi.domain.product.SKU;
 
 import java.util.List;
 
-public interface SKU_Service {
+public interface SkuService {
 
 
-    //新增sku
+    //1新增sku***
     int insertSKU(SKU sku);
 
 

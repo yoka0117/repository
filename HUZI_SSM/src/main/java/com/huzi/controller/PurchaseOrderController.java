@@ -39,7 +39,7 @@ public class PurchaseOrderController {
     }
 
 
-    //2查询采购单 **
+    //2查询采购单列表 **
     @RequestMapping("/selectPurchase.do")
     public ModelAndView selectPurchase(){
         ModelAndView mv = new ModelAndView();
@@ -50,52 +50,22 @@ public class PurchaseOrderController {
         return  mv;
     }
 
-    //3按订单号查询采购单 **
-    @RequestMapping("/selectPurchaseById.do")
-    public ModelAndView selectPurchaseById(Integer purchaseId){
+    /**3完结采购单：
+     * （1）查询是否存在单号
+     * （2）检查订单是否完结
+     * （3）更改订单状态、更新时间
+     * （4）库存增加
+     *              查skuid+仓库id：    有，更新。          没有，新增
+    **/
+    @RequestMapping("/finishPurchaseState.do")
+    public ModelAndView finishPurchaseState(PurchaseOrder purchaseOrder){
         ModelAndView mv = new ModelAndView();
-        PurchaseOrder purchaseOrder =  purchaseOrderService.selectPurchaseOrderById(purchaseId);
 
-        mv.addObject("result",purchaseOrder);
+        String result = purchaseOrderService.finishPurchaseState(purchaseOrder);
+
+
+        mv.addObject("result",result);
         mv.setViewName("result");
         return  mv;
     }
-
-
-    //4查询订单状态 **
-    @RequestMapping("/checkPurchaseState.do")
-    public ModelAndView checkPurchaseState(Integer purchaseId){
-        ModelAndView mv = new ModelAndView();
-        String tip = "完单";
-        String state = purchaseOrderService.checkState(purchaseId);
-        if (PurchaseOrderStatus.INIT.equals(state)){
-            tip = "没有完单";
-        }
-        mv.addObject("result",tip);
-        mv.setViewName("result");
-        return mv;
-    }
-
-
-    //5完成订单FINISH**
-    @RequestMapping("/finishPurchaseState.do")
-    public ModelAndView finishPurchaseState(Integer purchaseId){
-        ModelAndView mv = new ModelAndView();
-        String tip = null;
-
-        int num = purchaseOrderService.finishPurchaseState(purchaseId);
-        if(num > 0){
-            tip = "已设置成完结";
-        }
-
-        mv.addObject("result",tip);
-        mv.setViewName("result");
-        return mv;
-    }
-
-
-
-
-
-
 }

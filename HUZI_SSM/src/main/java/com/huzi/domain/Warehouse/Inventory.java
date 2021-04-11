@@ -5,8 +5,8 @@ public class Inventory {
     private int inventoryId;
     private int skuId;
     private int warehouseId;
-    private int Physical_Inventory;
-    private int Real_Inventory;
+    private int physicalInventory;
+    private int realInventory;
 
     public int getInventoryId() {
         return inventoryId;
@@ -32,19 +32,19 @@ public class Inventory {
         this.warehouseId = warehouseId;
     }
 
-    public int getPhysical_Inventory() {
-        return Physical_Inventory;
+    public int getPhysicalInventory() {
+        return physicalInventory;
     }
 
-    public void setPhysical_Inventory(int physical_Inventory) {
-        Physical_Inventory = physical_Inventory;
+    public void setPhysicalInventory(int physicalInventory) {
+        this.physicalInventory = physicalInventory;
     }
 
-    public int getReal_Inventory() {
-        return Real_Inventory;
+    public int getRealInventory() {
+        return realInventory;
     }
 
-    public void setReal_Inventory(int real_Inventory) {
-        Real_Inventory = real_Inventory;
+    public void setRealInventory(int realInventory) {
+        this.realInventory = realInventory;
     }
 }

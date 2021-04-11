@@ -20,28 +20,9 @@ private InventoryDao inventoryDao;
         return inventoryDao.insertInventory(inventory);
     }
 
-    @Override
-    public int updateInventory(Inventory inventory) {
-        int num = 0;
-        int skuId = inventory.getSkuId();
-        int warehouseId = inventory.getWarehouseId();
-
-        Inventory inventory1 = new Inventory();
-        inventory1.setSkuId(skuId);
-        inventory1.setWarehouseId(warehouseId);
-
-        if(inventoryDao.selectBySkuWarehouse(inventory1)== null){
-            num = inventoryDao.insertInventory(inventory1);
-        }else {
-            //1.查询当前库存=10
-            //2.计算采购完结后的库存 = 10 + 5 =15
-            //3.更新库存 库存=15
-            num =  inventoryDao.updateInventory(inventory);
-        }
 
 
-        return num;
-    }
+
 }
 
 

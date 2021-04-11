@@ -11,9 +11,6 @@ public interface InventoryService {
 
 
 
-    //2增加库存
-    int updateInventory(Inventory inventory);
-
 
 
 

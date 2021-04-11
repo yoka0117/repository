@@ -6,7 +6,7 @@
  namespace：必须有值，自定义的唯一字符串
  推荐使用：dao 接口的全限定名称
 -->
-<mapper namespace="com.huzi.dao.SKU_GoodsDao">
+<mapper namespace="com.huzi.dao.SkuGoodsDao">
     <!--
     <select>: 查询数据， 标签中必须是 select 语句
     id: sql 语句的自定义名称，推荐使用 dao 接口中方法名称，
@@ -14,17 +14,18 @@
     resultType: 查询语句的返回结果数据类型，使用全限定类名
     -->
 
-<resultMap id="selectAll" type="com.huzi.domain.product.SKU_Goods">
+<resultMap id="selectAll" type="com.huzi.domain.product.SkuGoods">
 
     <result property="goodsId" column="goods_id" ></result>
-    <result property="goodsName" column="g.goods_name" ></result>
-    <result property="goodsIntroduce" column="g.goods_introduce"></result>
-    <result property="skuId" column="s.sku_id" ></result>
-    <result property="skuSize" column="s.sku_size"></result>
-    <result property="skuColor" column="s.sku_color"></result>
+    <result property="goodsName" column="goods_name" ></result>
+    <result property="goodsIntroduce" column="goods_introduce"></result>
+    <result property="skuId" column="sku_id" ></result>
+    <result property="skuSize" column="sku_size"></result>
+    <result property="skuColor" column="sku_color"></result>
 </resultMap>
 
 
+<!--//1查看所有商品 sku + goods 详情 ***-->
     <select id="selectSKU_GoodsAll" resultMap="selectAll">
         select
             s.sku_id ,s.sku_size,s.sku_color,g.goods_id,g.goods_name,g.goods_introduce

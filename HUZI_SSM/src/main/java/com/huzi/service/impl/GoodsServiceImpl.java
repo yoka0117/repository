@@ -13,6 +13,7 @@ public class GoodsServiceImpl implements GoodsService {
     @Autowired
     private GoodsDao goodsDao;
 
+    //1添加Goods商品***
     @Override
     public int insertGoods(Goods goods) {
         return goodsDao.insertGoods(goods);

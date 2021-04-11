@@ -13,13 +13,13 @@ public interface InventoryDao {
 
 
 
-    //2增加库存
-    int updateInventory(InventoryParam inventory);
+    //增加库存
+    int updateInventory(InventoryParam inventoryParam);
 
 
-    //根据skuid和warehouseid查询
-    //Inventory selectBySkuWarehouse(@Param("skuId") Integer skuid, @Param("warehouseId") Integer warehouseid);
-    Inventory selectBySkuWarehouse(Inventory inventory);
+    //通过skuid+仓库id查库存表id
+    int selectInventoryId(Inventory inventory);
+
 
 
 

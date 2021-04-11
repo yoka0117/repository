@@ -3,7 +3,6 @@ package com.huzi.controller;
 
 import com.huzi.domain.Warehouse.Inventory;
 import com.huzi.service.InventoryService;
-import com.sun.imageio.plugins.tiff.TIFFNullCompressor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,21 +22,17 @@ public class InventoryController {
     public ModelAndView insertInventory(Inventory inventory){
         ModelAndView mv = new ModelAndView();
         String tip = "新增失败";
-
-
-
         int num = inventoryService.insertInventory(inventory);
         if (num > 0 ) {
             tip = "新增成功";
         }
-
         mv.addObject("result",tip);
         mv.setViewName("result");
         return mv;
     }
 
 
-    //2更改库存
+    /*//2更改库存
     @RequestMapping("/updateInventory.do")
     public ModelAndView updateInventory(Inventory inventory){
         ModelAndView mv = new ModelAndView();
@@ -49,5 +44,5 @@ public class InventoryController {
         mv.addObject("result",tip);
         mv.setViewName("result");
         return mv;
-    }
+    }*/
 }

@@ -14,8 +14,10 @@ public interface PurchaseOrderDao {
 
 
 
-        //2查询所有采购单
+        //2查询采购单列表
         List<PurchaseOrder> selectPurchaseOrder();
+
+
 
 
         //3查询采购单（根据订单号）

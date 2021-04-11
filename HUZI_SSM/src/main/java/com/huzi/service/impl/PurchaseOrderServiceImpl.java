@@ -1,12 +1,16 @@
 package com.huzi.service.impl;
 
 import com.huzi.common.PurchaseOrderStatus;
+import com.huzi.dao.InventoryDao;
 import com.huzi.dao.PurchaseOrderDao;
-import com.huzi.dao.Sku_Dao;
+import com.huzi.dao.SkuDao;
+import com.huzi.domain.Warehouse.Inventory;
+import com.huzi.domain.Warehouse.InventoryParam;
 import com.huzi.domain.purchase.PurchaseOrder;
 import com.huzi.service.PurchaseOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -19,7 +23,10 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     private PurchaseOrderDao purchaseOrderDao;
 
     @Autowired
-    private Sku_Dao skuDao;
+    private SkuDao skuDao;
+
+    @Autowired
+    private InventoryDao inventoryDao;
 
 
     //1新增采购单
@@ -45,36 +52,56 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     }
 
 
-    //3查询采购单（根据订单号）
+    //完成订单FINISH
+    @Transactional
     @Override
-    public PurchaseOrder selectPurchaseOrderById(Integer purchaseId) {
+    public String finishPurchaseState(PurchaseOrder purchaseOrder) {
+        int purchaseId = purchaseOrder.getPurchaseId();
+        String tip = null;
+        //验证单号是否存在
+        if(purchaseOrderDao.selectPurchaseOrderById(purchaseId)!=null){
+            //如果检查状态是否是INIT
+            String state = purchaseOrderDao.checkState(purchaseId);
+            if(state.equals(PurchaseOrderStatus.INIT.name())){
+                //通过skuid+仓库id去查库存id,如果有 就增加库存，没有就新建库存
+                int skuId = purchaseOrder.getSkuId();
+                int  warehouseId = purchaseOrder.getWarehouseId();
+                Inventory inventory = new Inventory();
+                inventory.setSkuId(skuId);
+                inventory.setWarehouseId(warehouseId);
+                int inventoryId = inventoryDao.selectInventoryId(inventory);
+                if( inventoryId != 0){
+                    //增加库存
+                    int amount = purchaseOrder.getPurchaseAmount();
+                    InventoryParam inventoryParam = new InventoryParam();
+                    inventoryParam.setInventoryId(inventoryId);
+                    inventoryParam.setPhysicalInventoryAdd(amount);
+                    inventoryParam.setRealInventoryAdd(amount);
+                    if(inventoryDao.updateInventory(inventoryParam)>0){
+                        //将状态改为FINISH,更新时间
+                        purchaseOrder.setPurchaseUpdateTime(new Date());
+                        purchaseOrder.setPurchaseState(PurchaseOrderStatus.FINISH.name());
+                        int num = purchaseOrderDao.finishPurchase(purchaseOrder);
+                        if(num > 0){
+                            tip = "订单完结成功";
+                        }else {
+                            return "订单完结失败";
+                        }
+                    }else {
+                        return "库存更新失败";
+                    }
+                }
 
-        return purchaseOrderDao.selectPurchaseOrderById(purchaseId);
+
+
+            }else {
+                return  "订单已经完成，无需重复提交";
+            }
+        }else {
+            return "没有此单号，请重新输入";
+        }
+        return tip;
     }
-
-
-
-    //4查询订单状态
-        @Override
-        public String checkState(Integer purchaseId) {
-
-        return purchaseOrderDao.checkState(purchaseId);
-    }
-
-
-
-    //5完成订单FINISH
-    @Override
-    public int finishPurchaseState(Integer purchaseId) {
-
-        PurchaseOrder purchaseOrder = new PurchaseOrder();
-        purchaseOrder.setPurchaseId(purchaseId);
-        purchaseOrder.setPurchaseUpdateTime(new Date());
-        purchaseOrder.setPurchaseState(PurchaseOrderStatus.FINISH.name());
-        int num = purchaseOrderDao.finishPurchase(purchaseOrder);
-        return num;
-    }
-
 
 
 }
