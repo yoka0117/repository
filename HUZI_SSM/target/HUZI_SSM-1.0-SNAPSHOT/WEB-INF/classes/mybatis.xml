@@ -5,7 +5,7 @@
 
 
 <configuration>
-    <!--设置别名-->
+    <!--设置别名,name=实体类所在包名-->
     <typeAliases>
         <package name="com.huzi.domain.*"/>
     </typeAliases>

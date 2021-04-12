@@ -1,16 +1,21 @@
 package com.huzi.dao;
 
+import com.huzi.domain.purchase.OrderDetails;
 import com.huzi.domain.purchase.PurchaseOrder;
 
 import java.util.List;
 
 public interface PurchaseOrderDao {
 
+        // TODO: 2021/4/12
+        int insertPurchase(PurchaseOrder purchaseOrder);
 
+        //TODO  创建采购单详情
+        int insertDetails(OrderDetails orderDetails);
 
 
         //1创建（新增）采购订单
-        int insertPurchaseOrder(PurchaseOrder purchaseOrder);
+        //int insertPurchaseOrder(PurchaseOrder purchaseOrder);
 
 
 
@@ -31,6 +36,11 @@ public interface PurchaseOrderDao {
 
         //5完成订单FINISH， update for state
         int finishPurchase(PurchaseOrder purchaseOrder);
+
+
+
+
+
     }
 
 

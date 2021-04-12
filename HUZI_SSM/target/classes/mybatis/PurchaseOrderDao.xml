@@ -14,7 +14,14 @@
     resultType: 查询语句的返回结果数据类型，使用全限定类名
     -->
 <resultMap id="PurchaseOrderMap" type="com.huzi.domain.purchase.PurchaseOrder">
-    <id column=""
+    <id column="purchase_id" property="purchaseId"></id>
+    <result column="sku_id" property="skuId"></result>
+    <result column="warehouse_id" property="warehouseId"></result>
+    <result column="purchase_amount" property="purchaseAmount"></result>
+    <result column="purchase_create_time" property="purchaseCreateTime"></result>
+    <result column="purchase_state" property="purchaseState"></result>
+    <result column="purchase_update_time" property="purchaseUpdateTime"></result>
+
 </resultMap>
 
 
@@ -25,8 +32,29 @@
     </insert>
 
 
-    <!--查询采购单-->
-    <select id="selectPurchaseOrder" resultMap="">
-
+    <!--(总览)查询采购单-->
+    <select id="selectPurchaseOrder" resultMap="PurchaseOrderMap">
+            select purchase_id,sku_id,warehouse_id,purchase_amount,purchase_create_time,purchase_state,purchase_update_time
+            from t_purchase_order
     </select>
+
+
+    <!--查询采购单（根据订单号查询）-->
+    <select id="selectPurchaseOrderById" parameterType="java.lang.Integer" resultMap="PurchaseOrderMap">
+        select purchase_id,sku_id,warehouse_id,purchase_amount,purchase_create_time,purchase_state,purchase_update_time
+            from t_purchase_order
+            where purchase_id = #{purchaseId}
+    </select>
+
+
+    <!--查看采购单是否完单-->
+    <select id="checkState" parameterType="java.lang.Integer" resultType="java.lang.String">
+        select purchase_state from t_purchase_order where purchase_id = #{purchaseId}
+    </select>
+
+
+    <!--5完成订单FINISH-->
+    <update id="finishPurchase" parameterType="com.huzi.domain.purchase.PurchaseOrder" >
+        update t_purchase_order set purchase_state = #{purchaseState} ,purchase_update_time = #{purchaseUpdateTime}where purchase_id = #{purchaseId}
+    </update>
 </mapper>

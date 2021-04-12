@@ -16,7 +16,7 @@
 
 
 
-
+    <!--//1添加Goods商品***-->
     <insert id="insertGoods" >
         insert into t_goods(goods_name,goods_introduce)
         values(#{goodsName},#{goodsIntroduce})

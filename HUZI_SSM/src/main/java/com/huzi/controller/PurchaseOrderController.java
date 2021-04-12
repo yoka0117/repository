@@ -1,8 +1,7 @@
 package com.huzi.controller;
-import com.huzi.common.PurchaseOrderStatus;
+
 import com.huzi.domain.purchase.PurchaseOrder;
 import com.huzi.service.PurchaseOrderService;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +16,25 @@ public class PurchaseOrderController {
     @Autowired
     private PurchaseOrderService purchaseOrderService;
 
+
+    // TODO: 2021/4/12 新增采购单（新）
+    @RequestMapping("/insertPurchase.do")
+    public ModelAndView insertPurchase(PurchaseOrder purchaseOrder){
+        ModelAndView mv  = new ModelAndView();
+        Integer result = purchaseOrderService.insertPurchase(purchaseOrder);
+
+        mv.addObject("result",result);
+        mv.setViewName("result");
+        return mv;
+    }
+
+
+
+
+
+
+
+
     //1新建采购订单
     @RequestMapping("/insertPurchase.do")
     public ModelAndView insertOrder(PurchaseOrder purchaseOrder){
@@ -27,7 +45,8 @@ public class PurchaseOrderController {
         if(purchaseOrder.getSkuId() !=0
                 && purchaseOrder.getPurchaseAmount() > 0
                 && purchaseOrder.getWarehouseId() != 0 ) {
-            num = purchaseOrderService.insertOrder(purchaseOrder);
+            //------------*********************
+            num = purchaseOrderService.insertPurchase(purchaseOrder);
             if (num > 0){
                 tip = "成功";
             }
@@ -50,6 +69,12 @@ public class PurchaseOrderController {
         return  mv;
     }
 
+
+
+
+
+
+
     /**3完结采购单：
      * （1）查询是否存在单号
      * （2）检查订单是否完结
@@ -68,4 +93,5 @@ public class PurchaseOrderController {
         mv.setViewName("result");
         return  mv;
     }
+
 }

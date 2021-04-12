@@ -18,7 +18,7 @@ public interface InventoryDao {
 
 
     //通过skuid+仓库id查库存表id
-    int selectInventoryId(Inventory inventory);
+    Integer selectInventoryId(Inventory inventory);
 
 
 

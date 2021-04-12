@@ -7,10 +7,13 @@ import java.util.List;
 
 public interface PurchaseOrderService {
 
+//todo 新增采购单 （新）
+    int insertPurchase(PurchaseOrder purchaseOrder);
 
-    //1新增采购单
+
+    /*//1新增采购单
     int insertOrder(PurchaseOrder purchaseOrder);
-
+*/
     //2查询采购单列表
     List<PurchaseOrder> selectPurchaseOrder();
 
@@ -24,5 +27,8 @@ public interface PurchaseOrderService {
 
     //完成订单FINISH
     String finishPurchaseState(PurchaseOrder purchaseOrder);
+
+
+
 
 }

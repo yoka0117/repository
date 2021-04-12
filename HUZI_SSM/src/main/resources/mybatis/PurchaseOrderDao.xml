@@ -24,6 +24,25 @@
 
 </resultMap>
 
+<!--todo 新增采购单 （新）-->
+ <insert id="insertPurchase" parameterType="com.huzi.domain.purchase.PurchaseOrder">
+
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="purchaseId">
+            select LAST_INSERT_ID()
+        </selectKey>
+     insert into t_purchase_order(purchase_create_time,purchase_state)
+     values(#{purchaseCreateTime},#{purchaseState})
+ </insert>
+
+
+
+    <!--todo 创建采购单详情-->
+    <insert id="insertDetails" parameterType="com.huzi.domain.purchase.OrderDetails">
+        insert into t_details (purchase_id,sku_id,warehouse_id,amount)
+        values (#{purchaseId},#{skuId},#{warehouseId},#{amount})
+        where purchase_id = #{purchaseId}
+    </insert>
+
 
 <!--新增采购单-->
     <insert id="insertPurchaseOrder" parameterType="com.huzi.domain.purchase.PurchaseOrder">
@@ -53,7 +72,7 @@
     </select>
 
 
-    <!--5完成订单FINISH-->
+    <!--5完成订单FINISH   修改订单状态-->
     <update id="finishPurchase" parameterType="com.huzi.domain.purchase.PurchaseOrder" >
         update t_purchase_order set purchase_state = #{purchaseState} ,purchase_update_time = #{purchaseUpdateTime}where purchase_id = #{purchaseId}
     </update>
