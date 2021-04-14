@@ -32,14 +32,12 @@
     </insert>
 
     <!--根据warehouseid和skuid查询-->
-    <select id="selectInventoryId" resultType="java.lang.Integer">
+    <select id="selectInventoryId" resultType="java.lang.Integer" >
             select inventory_id
             from t_inventory
             where sku_id = #{skuId} and  warehouse_id = #{warehouseId}
     </select>
-
-
-    2增加库存
+    <!--2增加库存-->
     <update id="updateInventory" parameterType="com.huzi.domain.Warehouse.InventoryParam">
          update t_inventory set inventory_physical =inventory_physical + #{physicalInventoryAdd},
                                 inventory_real=inventory_real + #{realInventoryAdd}

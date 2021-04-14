@@ -15,7 +15,7 @@ public class SkuController {
 @Autowired
 private SkuService skuService;
 
-        //1新增sku***
+        //1新增sku***ok
         @RequestMapping("/insertSKU.do")
         public ModelAndView insertSKU(SKU sku){
             ModelAndView mv = new ModelAndView();

@@ -44,7 +44,7 @@ public class PurchaseOrderController {
                 orderDetailsList.add(orderDetails);
             }
             int result  =  purchaseOrderService.insertOrderDetails(orderDetailsList);
-            //(result ==0)?tip="创建明细表失败":tip="创建明细表成功";
+
             if (result == 0){
                  tip = "创建明细表失败";
             } tip = "创建订单表/明细表成功";

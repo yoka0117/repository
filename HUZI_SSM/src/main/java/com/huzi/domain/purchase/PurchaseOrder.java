@@ -54,6 +54,15 @@ public class PurchaseOrder {
         this.purchaseUpdateTime = purchaseUpdateTime;
     }
 
-
+    @Override
+    public String toString() {
+        return "PurchaseOrder{" +
+                "purchaseId=" + purchaseId +
+                ", purchaseCreateTime=" + purchaseCreateTime +
+                ", purchaseState='" + purchaseState + '\'' +
+                ", purchaseUpdateTime=" + purchaseUpdateTime +
+                ", orderDetails=" + orderDetails +
+                '}';
+    }
 }
 

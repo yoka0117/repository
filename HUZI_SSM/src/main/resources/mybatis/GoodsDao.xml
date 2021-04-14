@@ -17,7 +17,7 @@
 
 
     <!--//1添加Goods商品***-->
-    <insert id="insertGoods" >
+    <insert id="insertGoods"  parameterType="com.huzi.domain.product.Goods">
         insert into t_goods(goods_name,goods_introduce)
         values(#{goodsName},#{goodsIntroduce})
     </insert>

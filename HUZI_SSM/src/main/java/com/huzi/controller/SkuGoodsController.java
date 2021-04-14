@@ -16,7 +16,7 @@ public class SkuGoodsController {
     @Autowired
     private SkuGoodsService skuGoodsService;
 
-        //1查看所有商品 sku + goods 详情 ***
+        //1查看所有商品 sku + goods 详情 ***ok
     @RequestMapping("/selectAll.do")
     public ModelAndView selectAll(){
 

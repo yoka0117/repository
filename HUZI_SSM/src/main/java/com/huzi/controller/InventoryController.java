@@ -17,7 +17,7 @@ public class InventoryController {
     private InventoryService inventoryService;
 
 
-    //1新建商品库存
+    //1新建商品库存ok
     @RequestMapping("/insertInventory.do")
     public ModelAndView insertInventory(Inventory inventory){
         ModelAndView mv = new ModelAndView();
@@ -37,7 +37,7 @@ public class InventoryController {
     public ModelAndView inventoryState(Integer purchaseId,Integer orderDetailsId){
         ModelAndView mv = new ModelAndView();
         String tip = "";
-        inventoryService.finishPurchaseOrderByUser(purchaseId,orderDetailsId);
+        tip = inventoryService.finishPurchaseOrderByUser(purchaseId,orderDetailsId);
 
 
         mv.addObject("result",tip);

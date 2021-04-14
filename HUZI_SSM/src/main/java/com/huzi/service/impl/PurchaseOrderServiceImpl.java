@@ -44,14 +44,10 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     public int insertOrderDetails(List<OrderDetails> orderDetailsList) {
         int num ;
         for ( OrderDetails  orderDetails :orderDetailsList){
-            //验证非空
-            if (orderDetails.getAmount()>0 && orderDetails.getSkuId()>0 && orderDetails.getWarehouseId()>0 && orderDetails.getPurchaseId()>0){
-                num =  purchaseOrderDao.insertDetails(orderDetails);
-                if (num == 0 ){
+            num =  purchaseOrderDao.insertDetails(orderDetails);
+            if (num == 0 ){
                     return 0;
-                }
-            }else return 0;
-
+            }
         }
         return 1;
     }
@@ -70,10 +66,9 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         if (purchaseOrder != null) {
             List<OrderDetails> orderDetailsList = purchaseOrderDao.selectOrderDetailsByPurchaseId(purchaseId);
             purchaseOrder.setOrderDetails(orderDetailsList);
-            return purchaseOrder;
-        }else {
-            return null;
         }
+        return purchaseOrder;
+
     }
     //---------------------------------------------------------------------
 

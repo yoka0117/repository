@@ -14,7 +14,7 @@ public class GoodsController {
     @Autowired
     private GoodsService goodsService;
 
-    //1添加Goods商品***
+    //1添加Goods商品ok
     @RequestMapping("/insertGoods.do" )
         public ModelAndView insertGoods(Goods goods){
         ModelAndView mv = new ModelAndView();

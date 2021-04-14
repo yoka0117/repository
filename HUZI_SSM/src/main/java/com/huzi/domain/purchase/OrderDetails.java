@@ -60,4 +60,16 @@ public class OrderDetails {
     public void setOrderDetailsState(String orderDetailsState) {
         this.orderDetailsState = orderDetailsState;
     }
+
+    @Override
+    public String toString() {
+        return "OrderDetails{" +
+                "orderDetailsId=" + orderDetailsId +
+                ", purchaseId=" + purchaseId +
+                ", skuId=" + skuId +
+                ", warehouseId=" + warehouseId +
+                ", amount=" + amount +
+                ", orderDetailsState='" + orderDetailsState + '\'' +
+                '}';
+    }
 }
