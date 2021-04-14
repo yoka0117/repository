@@ -7,7 +7,7 @@ public class Inventory {
     private int warehouseId;
     private int physicalInventory;
     private int realInventory;
-    private String inventoryState;
+
 
     public int getInventoryId() {
         return inventoryId;
@@ -49,11 +49,6 @@ public class Inventory {
         this.realInventory = realInventory;
     }
 
-    public String getInventoryState() {
-        return inventoryState;
-    }
 
-    public void setInventoryState(String inventoryState) {
-        this.inventoryState = inventoryState;
-    }
+
 }

@@ -29,6 +29,7 @@
         <result column="sku_id" property="skuId"></result>
         <result column="warehouse_id" property="warehouseId"></result>
         <result column="amount" property="amount"></result>
+        <result column="orderDetails_state" property="orderDetailsState"></result>
     </resultMap>
 
     <!--todo 新增采购单 （新）-->
@@ -61,6 +62,22 @@
         select orderDetails_id,purchase_id,sku_id,warehouse_id,amount from t_orderdetails
         where purchase_id = #{purchaseId}
     </select>
+
+
+
+    <!--查询采购详情单***-->
+    <select id="selectOrderDetails" parameterType="java.lang.Integer" resultMap="OrderDetailsMap">
+        select orderDetails_id,purchase_id,sku_id,warehouse_id,amount ,orderDetails_state from t_orderdetails
+        where orderDetails_id = #{orderDetails_id}
+    </select>
+
+
+
+    <!--更改采购单详情表的状态****-->
+    <update id="updateDetails" parameterType="com.huzi.domain.purchase.OrderDetails">
+        update t_orderdetails set orderDetails_state = #{orderDetailsState} where orderDetails_id = #{orderDetails_id}
+    </update>
+
 
 
 

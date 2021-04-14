@@ -32,12 +32,12 @@ public class InventoryController {
     }
 
 
-    //仓库管理员管理仓库状态
+    // TODO:  仓库管理员管理仓库状态
     @RequestMapping("/inventoryState.do")
-    public ModelAndView inventoryState(){
+    public ModelAndView inventoryState(Integer purchaseId,Integer orderDetailsId){
         ModelAndView mv = new ModelAndView();
         String tip = "";
-
+        inventoryService.finishPurchaseOrderByUser(purchaseId,orderDetailsId);
 
 
         mv.addObject("result",tip);

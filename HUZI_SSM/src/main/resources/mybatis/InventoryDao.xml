@@ -19,7 +19,6 @@
     <result column="warehouse_id" property="warehouseId"></result>
     <result column="inventory_physical" property="Physical_Inventory"></result>
     <result column="inventory_real" property="Real_Inventory"></result>
-    <result column="inventory_state" property="inventoryState"></result>
 </resultMap>
 
 
@@ -28,8 +27,8 @@
         <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="inventoryId">
             select LAST_INSERT_ID()
         </selectKey>
-        insert into t_inventory(sku_id,warehouse_id,inventory_physical,inventory_real,inventory_state)
-        values(#{skuId},#{warehouseId},#{physicalInventory},#{realInventory},#{inventoryState})
+        insert into t_inventory(sku_id,warehouse_id,inventory_physical,inventory_real)
+        values(#{skuId},#{warehouseId},#{physicalInventory},#{realInventory})
     </insert>
 
     <!--根据warehouseid和skuid查询-->

@@ -11,7 +11,8 @@ public interface InventoryService {
 
 
 
-
+    //管理员管理**
+    String finishPurchaseOrderByUser(Integer purchaseId,Integer orderDetailsId);
 
 
 }

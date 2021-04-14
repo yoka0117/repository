@@ -11,6 +11,7 @@ public class OrderDetails {
     private int skuId;
     private int warehouseId;
     private int amount;
+    private String orderDetailsState;
 
     public int getOrderDetailsId() {
         return orderDetailsId;
@@ -50,5 +51,13 @@ public class OrderDetails {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public String getOrderDetailsState() {
+        return orderDetailsState;
+    }
+
+    public void setOrderDetailsState(String orderDetailsState) {
+        this.orderDetailsState = orderDetailsState;
     }
 }

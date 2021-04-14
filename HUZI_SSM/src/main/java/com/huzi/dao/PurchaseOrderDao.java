@@ -25,9 +25,12 @@ public interface PurchaseOrderDao {
 
 
 
-        //4查询订单状态
-        String checkState(Integer  purchaseId);
+        //查询采购详情是否存在
+        OrderDetails selectOrderDetails(Integer orderDetailsId );
 
+
+        //更改采购单详情表
+        int updateDetails(OrderDetails orderDetails);
     }
 
 
