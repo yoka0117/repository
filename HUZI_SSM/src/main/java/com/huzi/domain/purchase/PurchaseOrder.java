@@ -1,17 +1,26 @@
 package com.huzi.domain.purchase;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.Date;
+import java.util.List;
 
 public class PurchaseOrder {
 
 
     private int purchaseId;
-    private int skuId;
-    private int warehouseId;
-    private int purchaseAmount;
     private Date purchaseCreateTime;
     private String purchaseState;
     private Date purchaseUpdateTime;
+    private List<OrderDetails> orderDetails;
+
+    public List<OrderDetails> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetails> orderDetails) {
+        this.orderDetails = orderDetails;
+    }
 
     public int getPurchaseId() {
         return purchaseId;
@@ -19,30 +28,6 @@ public class PurchaseOrder {
 
     public void setPurchaseId(int purchaseId) {
         this.purchaseId = purchaseId;
-    }
-
-    public int getSkuId() {
-        return skuId;
-    }
-
-    public void setSkuId(int skuId) {
-        this.skuId = skuId;
-    }
-
-    public int getWarehouseId() {
-        return warehouseId;
-    }
-
-    public void setWarehouseId(int warehouseId) {
-        this.warehouseId = warehouseId;
-    }
-
-    public int getPurchaseAmount() {
-        return purchaseAmount;
-    }
-
-    public void setPurchaseAmount(int purchaseAmount) {
-        this.purchaseAmount = purchaseAmount;
     }
 
     public Date getPurchaseCreateTime() {
@@ -68,5 +53,7 @@ public class PurchaseOrder {
     public void setPurchaseUpdateTime(Date purchaseUpdateTime) {
         this.purchaseUpdateTime = purchaseUpdateTime;
     }
+
+
 }
 

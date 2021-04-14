@@ -1,6 +1,11 @@
 package com.huzi.domain.purchase;
 
+
+import org.springframework.stereotype.Component;
+
+
 public class OrderDetails {
+
     private int orderDetailsId;
     private int purchaseId;
     private int skuId;

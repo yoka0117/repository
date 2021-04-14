@@ -27,146 +27,154 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     private InventoryDao inventoryDao;
 
 
+    //---(新增订单)----------------------------------------------
     //todo 新增采购单（新）
     @Override
     public int insertPurchase(PurchaseOrder purchaseOrder) {
-        //判断sku是否存在
-        if(skuDao.selectSkuById(purchaseOrder.getSkuId() ) ==null ){
+        purchaseOrder.setPurchaseState(PurchaseOrderStatus.INIT.name());
+        purchaseOrder.setPurchaseCreateTime(new Date());
+        if (purchaseOrderDao.insertPurchase(purchaseOrder)>0){
+            return purchaseOrder.getPurchaseId();
+        }else {
             return 0;
         }
-        purchaseOrder.setPurchaseCreateTime(new Date());
-        purchaseOrder.setPurchaseState(PurchaseOrderStatus.INIT.name());
-        purchaseOrderDao.insertPurchase(purchaseOrder);
-        OrderDetails orderDetails = new OrderDetails();
-        Integer purchaseId =  purchaseOrder.getPurchaseId();
-        orderDetails.setPurchaseId(purchaseId);
-        orderDetails.setSkuId(purchaseOrder.getSkuId());
-        orderDetails.setWarehouseId(purchaseOrder.getWarehouseId());
-        orderDetails.setAmount(purchaseOrder.getPurchaseAmount());
-        int result = purchaseOrderDao.insertDetails(orderDetails);
+    }
 
-        return result ;
+    @Override
+    public int insertOrderDetails(List<OrderDetails> orderDetailsList) {
+        int num ;
+        for ( OrderDetails  orderDetails :orderDetailsList){
+            //验证非空
+            if (orderDetails.getAmount()>0 && orderDetails.getSkuId()>0 && orderDetails.getWarehouseId()>0 && orderDetails.getPurchaseId()>0){
+                num =  purchaseOrderDao.insertDetails(orderDetails);
+                if (num == 0 ){
+                    return 0;
+                }
+            }else return 0;
+
+        }
+        return 1;
     }
 
 
+    //-------------------------------------------------------------
 
 
 
- /*   //1新增采购单
+
+    //-----------查询采购单及其详情(根据订单id)-----------------------------------------
     @Override
-    public int insertOrder(PurchaseOrder purchaseOrder) {
+    public PurchaseOrder selectPurchaseOrderAndDetails(Integer purchaseId) {
+        PurchaseOrder purchaseOrder =  purchaseOrderDao.selectPurchaseOrderById(purchaseId);
 
-   //todo 1.验证sku 仓库是存在 2.设置好creatTime 状态
-
-
-        if(skuDao.selectSkuById(purchaseOrder.getSkuId() ) ==null ){
-            return 0;
+        if (purchaseOrder != null) {
+            List<OrderDetails> orderDetailsList = purchaseOrderDao.selectOrderDetailsByPurchaseId(purchaseId);
+            purchaseOrder.setOrderDetails(orderDetailsList);
+            return purchaseOrder;
+        }else {
+            return null;
         }
-        purchaseOrder.setPurchaseCreateTime(new Date());
-        purchaseOrder.setPurchaseState(PurchaseOrderStatus.INIT.name());
-        return purchaseOrderDao.insertPurchaseOrder(purchaseOrder);
-
-    }*/
-
-
-    //2查询所有采购单
-    @Override
-    public List<PurchaseOrder> selectPurchaseOrder() {
-
-        return purchaseOrderDao.selectPurchaseOrder();
     }
-    //1.采购单--> 一种库存
-    //2.采购单支持多个商品 多个仓库 现有表结构不满足 -？
-    // 一个采购单【1.红色37码 北京进货10个 2.红色37码 上海进货20个 3.蓝色36码北京进货5个 4.绿色40码 杭走进货1个】
+    //---------------------------------------------------------------------
 
 
-    //CommonResult
-    public String closePurchaseOrder(Integer orderId){
+
+
+
+
+
+    //-------------作废订单（CommonResult）----------------------
+    public String invalidPurchase(Integer purchaseId){
         //1.验证是否存在
-        PurchaseOrder po = purchaseOrderDao.selectPurchaseOrderById(orderId);
-        String x = check(po);
+        PurchaseOrder purchaseOrder = purchaseOrderDao.selectPurchaseOrderById(purchaseId);
+        String x = check(purchaseOrder);
+        //2.只有INIT的作废，完成的单不能作废
         if(x!= null)return x;
-        po.setPurchaseUpdateTime(new Date());
-        po.setPurchaseState(PurchaseOrderStatus.INVALID.name());
-        if(purchaseOrderDao.finishPurchase(po)>0){
+        purchaseOrder.setPurchaseUpdateTime(new Date());
+        purchaseOrder.setPurchaseState(PurchaseOrderStatus.INVALID.name());
+        if(purchaseOrderDao.updatePurchase(purchaseOrder)>0){
             return "作废成功";
         }
         return "作废失败";
 
 
-        //2.只有INIT的作废，完成的单不能作废
-
     }
-
+    //-------------------------------------------------------------------
 
     //完成订单FINISH
     @Transactional
     @Override
-    public String finishPurchaseState(PurchaseOrder purchaseOrder) {
-        int purchaseId = purchaseOrder.getPurchaseId();
+    public String finishPurchase(OrderDetails orderDetails) {
         String tip = null;
-        //1
+        int purchaseId = orderDetails.getPurchaseId();
+        //1通过订单编号，查询
         PurchaseOrder po =purchaseOrderDao.selectPurchaseOrderById(purchaseId);
-        //2
+        //2查询订单状态及是否为null
         String x = check(po);
         if (x != null) return x;
-        //3
-        //通过skuid+仓库id去查库存id,如果有 就增加库存，没有就新建库存
-        Integer inventoryId = getAvailableInventoryId(po);
+        //3状态为INIT走以下程序：
+        //通过skuId+仓库id去查库存id,如果有就增加库存，没有就新建库存
+        Integer inventoryId = getAvailableInventoryId(orderDetails);
         if( inventoryId != null){
             //增加库存
             //4.1
-            int updateInventory = addInventory(po, inventoryId);
+            int updateInventory = addInventory(orderDetails, inventoryId);
             if(updateInventory>0){
                 //4.2
                 int num = finishPurchaseOrder(po);
                 if(num > 0){
-                            tip = "订单完结成功";
-                   }else {
-                            return "订单完结失败";
-                  }
-                    }else {
-                        return "库存更新失败";
-                    }
-                }else{
+                   tip = "订单完结成功";
+                }else {
+                   return "订单完结失败";
+                }
+            }else {
+                return "库存更新失败";
+            }
+        } else{
             //4.3 4.4
             //todo insert - 更新 ***
-                    this.insertPurchase(purchaseOrder);
-                    if(addInventory(po, inventoryId)>0){
-                        int num = finishPurchaseOrder(po);
-                        if(num > 0){
-                            tip = "订单完结成功";
-                        }else {
-                            return "订单完结失败";
-                        }
-                    }else {
-                        return "库存更新失败";
-                    }
-                }
+            Inventory inventory = new Inventory();
+            inventory.setSkuId(orderDetails.getSkuId());
+            inventory.setWarehouseId(orderDetails.getWarehouseId());
+            inventoryDao.insertInventory(inventory);
+            addInventory(orderDetails,inventory.getInventoryId());
+            finishPurchaseOrder(po);
+            tip = "订单完结成功";
+        }
         return tip;
     }
+
+
+
+    //更改采购单状态
     private int finishPurchaseOrder(PurchaseOrder po) {
         //将状态改为FINISH,更新时间
         po.setPurchaseUpdateTime(new Date());
         po.setPurchaseState(PurchaseOrderStatus.FINISH.name());
-        return purchaseOrderDao.finishPurchase(po);
+        return purchaseOrderDao.updatePurchase(po);
     }
-    private int addInventory(PurchaseOrder po, Integer inventoryId) {
-        int amount = po.getPurchaseAmount();
+
+    //添加库存
+    private int addInventory(OrderDetails orderDetails, Integer inventoryId) {
+        int amount = orderDetails.getAmount();
         InventoryParam inventoryParam = new InventoryParam();
         inventoryParam.setInventoryId(inventoryId);
         inventoryParam.setPhysicalInventoryAdd(amount);
         inventoryParam.setRealInventoryAdd(amount);
         return inventoryDao.updateInventory(inventoryParam);
     }
-    private Integer getAvailableInventoryId(PurchaseOrder po) {
-        int skuId = po.getSkuId();
-        int  warehouseId = po.getWarehouseId();
+
+    //获取库存id
+    private Integer getAvailableInventoryId(OrderDetails orderDetails) {
+        int skuId = orderDetails.getSkuId();
+        int warehouseId = orderDetails.getWarehouseId();
         Inventory inventory = new Inventory();
         inventory.setSkuId(skuId);
         inventory.setWarehouseId(warehouseId);
         return inventoryDao.selectInventoryId(inventory);
     }
+
+    //检查采购单状态
     private String check(PurchaseOrder po) {
         //验证单号是否存在
         //如果检查状态是否是INIT
@@ -174,9 +182,9 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
             return "没有此单号，请重新输入";
         }
         if(PurchaseOrderStatus.FINISH.name().equals(po.getPurchaseState())){
-            return  "订单已经完成，无需重复提交";
+            return  "订单已经完成，操作无效";
         }else if (PurchaseOrderStatus.INVALID.name().equals(po.getPurchaseState())){
-            return  "订单已经作废，无需重复提交";
+            return  "订单已经作废，操作无效";
         }
         return null;
     }

@@ -1,32 +1,36 @@
 package com.huzi.service;
 
 
+import com.huzi.domain.purchase.OrderDetails;
 import com.huzi.domain.purchase.PurchaseOrder;
 
 import java.util.List;
 
 public interface PurchaseOrderService {
 
+
+
 //todo 新增采购单 （新）
     int insertPurchase(PurchaseOrder purchaseOrder);
 
-
-    /*//1新增采购单
-    int insertOrder(PurchaseOrder purchaseOrder);
-*/
-    //2查询采购单列表
-    List<PurchaseOrder> selectPurchaseOrder();
-
-   /* //3查询采购单（根据订单号查）
-    PurchaseOrder selectPurchaseOrderById(Integer purchaseId);
+    int insertOrderDetails(List<OrderDetails> orderDetailsList);
 
 
-    //4查询订单状态
-    String checkState(Integer purchaseId);*/
+
+
+
+    //2查询采购单列表及其详情
+    PurchaseOrder selectPurchaseOrderAndDetails(Integer purchaseId);
+
+
+
+    //作废订单
+    String invalidPurchase(Integer purchaseId);
+
 
 
     //完成订单FINISH
-    String finishPurchaseState(PurchaseOrder purchaseOrder);
+    String finishPurchase(OrderDetails orderDetails);
 
 
 

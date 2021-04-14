@@ -32,17 +32,16 @@ public class InventoryController {
     }
 
 
-    /*//2更改库存
-    @RequestMapping("/updateInventory.do")
-    public ModelAndView updateInventory(Inventory inventory){
+    //仓库管理员管理仓库状态
+    @RequestMapping("/inventoryState.do")
+    public ModelAndView inventoryState(){
         ModelAndView mv = new ModelAndView();
-        String tip = null ;
-        if(inventoryService.updateInventory(inventory)>0){
-            tip = "更新成功";
-        }
+        String tip = "";
+
+
 
         mv.addObject("result",tip);
         mv.setViewName("result");
         return mv;
-    }*/
+    }
 }

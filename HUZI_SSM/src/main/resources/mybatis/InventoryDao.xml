@@ -19,13 +19,17 @@
     <result column="warehouse_id" property="warehouseId"></result>
     <result column="inventory_physical" property="Physical_Inventory"></result>
     <result column="inventory_real" property="Real_Inventory"></result>
+    <result column="inventory_state" property="inventoryState"></result>
 </resultMap>
 
 
 <!--1新建商品库存-->
     <insert id="insertInventory"  parameterType="com.huzi.domain.Warehouse.Inventory">
-        insert into t_inventory(sku_id,warehouse_id,inventory_physical,inventory_real)
-        values(#{skuId},#{warehouseId},#{Physical_Inventory},#{Real_Inventory})
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="inventoryId">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into t_inventory(sku_id,warehouse_id,inventory_physical,inventory_real,inventory_state)
+        values(#{skuId},#{warehouseId},#{physicalInventory},#{realInventory},#{inventoryState})
     </insert>
 
     <!--根据warehouseid和skuid查询-->
@@ -36,9 +40,10 @@
     </select>
 
 
-    <!--2增加库存-->
+    2增加库存
     <update id="updateInventory" parameterType="com.huzi.domain.Warehouse.InventoryParam">
-         update t_inventory set inventory_physical =inventory_physical + #{physicalInventoryAdd},inventory_real=inventory_real + #{realInventoryAdd}
+         update t_inventory set inventory_physical =inventory_physical + #{physicalInventoryAdd},
+                                inventory_real=inventory_real + #{realInventoryAdd}
         where inventory_id = #{inventoryId}
     </update>
 </mapper>
