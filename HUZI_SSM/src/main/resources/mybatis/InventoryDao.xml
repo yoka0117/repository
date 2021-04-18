@@ -17,8 +17,8 @@
     <id column="inventory_id" property="inventoryId"></id>
     <result column="sku_id" property="skuId"></result>
     <result column="warehouse_id" property="warehouseId"></result>
-    <result column="inventory_physical" property="Physical_Inventory"></result>
-    <result column="inventory_real" property="Real_Inventory"></result>
+    <result column="inventory_physical" property="physicalInventory"></result>
+    <result column="inventory_real" property="realInventory"></result>
 </resultMap>
 
 
@@ -42,5 +42,11 @@
          update t_inventory set inventory_physical =inventory_physical + #{physicalInventoryAdd},
                                 inventory_real=inventory_real + #{realInventoryAdd}
         where inventory_id = #{inventoryId}
+    </update>
+
+    <!--减少real库存(通过skuId and warehouseId)-->
+    <update id="updateInventoryCut" parameterType="com.huzi.domain.Warehouse.InventoryParam">
+        update t_inventory set  inventory_real=inventory_real - #{realInventoryAdd}
+        where sku_id = #{skuId} and warehouse_id = #{warehouseId} and inventory_real - #{realInventoryAdd} >=0
     </update>
 </mapper>

@@ -23,7 +23,7 @@ public class BusinessException extends Exception{
     }
 
     public BusinessException(String message,  String code) {
-        this.mss = mss;
+        this.mss = message;
         this.code = code;
     }
 }

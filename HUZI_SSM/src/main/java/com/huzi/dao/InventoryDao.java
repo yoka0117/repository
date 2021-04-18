@@ -24,5 +24,10 @@ public interface InventoryDao {
 
 
 
+    //扣除库存
+    int updateInventoryCut(InventoryParam inventoryParam);
+
+
+
 
 }

@@ -43,7 +43,7 @@ private PurchaseOrderDao purchaseOrderDao;
         if(purchaseOrder==null){return  "采购表单不存在";}
 
         //详情单是否属于采购单
-        if(purchaseOrderDao.selectOrderDetailsByPurchaseId(purchaseId)==null){
+        if(orderDetails.getPurchaseId() != purchaseOrder.getPurchaseId()){
             return "采购单与详情表单不对应";
         }
 

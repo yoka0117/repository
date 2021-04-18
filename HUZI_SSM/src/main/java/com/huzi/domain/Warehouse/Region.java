@@ -4,7 +4,8 @@ public class Region {
 
     private int regionId;
     private String regionType;
-    private String regionIntroduction;
+    private String regionName;
+
 
     public int getRegionId() {
         return regionId;
@@ -23,10 +24,13 @@ public class Region {
     }
 
     public String getRegionIntroduction() {
-        return regionIntroduction;
+        return regionName;
     }
 
+
     public void setRegionIntroduction(String regionIntroduction) {
-        this.regionIntroduction = regionIntroduction;
+        this.regionName = regionIntroduction;
     }
+
+
 }

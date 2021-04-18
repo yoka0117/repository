@@ -21,12 +21,12 @@
     </resultMap>
 
     <resultMap id="OrderDetailsMap" type="com.huzi.domain.purchase.OrderDetails">
-        <id column="orderDetails_id" property="orderDetailsId"></id>
+        <id column="order_details_id" property="orderDetailsId"></id>
         <result column="purchase_id" property="purchaseId"></result>
         <result column="sku_id" property="skuId"></result>
         <result column="warehouse_id" property="warehouseId"></result>
         <result column="amount" property="amount"></result>
-        <result column="orderDetails_state" property="orderDetailsState"></result>
+        <result column="order_details_state" property="orderDetailsState"></result>
     </resultMap>
 
     <!--todo 新增采购单 （新）-->
@@ -56,7 +56,7 @@
             where purchase_id = #{purchaseId}
     </select>
     <select id="selectOrderDetailsByPurchaseId" parameterType="java.lang.Integer" resultMap="OrderDetailsMap">
-        select orderDetails_id,purchase_id,sku_id,warehouse_id,amount ,orderDetails_state from t_orderdetails
+        select order_details_id,purchase_id,sku_id,warehouse_id,amount ,order_details_state from t_orderdetails
         where purchase_id = #{purchaseId}
     </select>
 
@@ -64,33 +64,32 @@
 
     <!--查询采购详情单***-->
     <select id="selectOrderDetails" parameterType="java.lang.Integer" resultMap="OrderDetailsMap">
-        select orderDetails_id,purchase_id,sku_id,warehouse_id,amount ,orderDetails_state from t_orderdetails
-        where orderDetails_id = #{orderDetails_id}
+        select order_details_id,purchase_id,sku_id,warehouse_id,amount ,order_details_state from t_orderdetails
+        where order_details_id = #{order_details_id}
     </select>
 
 
 
     <!--更改采购单详情表的状态****-->
     <update id="updateDetails" parameterType="com.huzi.domain.purchase.OrderDetails">
-        update t_orderdetails set orderDetails_state = #{orderDetailsState} where orderDetails_id = #{orderDetails_id}
+        update t_orderdetails set order_details_state = #{orderDetailsState} where order_details_id = #{orderDetails_id}
     </update>
 
 
 
 
 
-    <!--(总览)查询采购单-->
+    <!--(总览)查询采购单
     <select id="selectPurchaseOrder" resultMap="PurchaseOrderMap">
             select purchase_id,sku_id,warehouse_id,purchase_amount,purchase_create_time,purchase_state,purchase_update_time
             from t_purchase_order
-    </select>
+    </select>-->
 
 
-    <!--查看采购单是否完单-->
+    <!--查看采购单是否完单
     <select id="checkState" parameterType="java.lang.Integer" resultType="java.lang.String">
         select purchase_state from t_purchase_order where purchase_id = #{purchaseId}
-    </select>
-
+    </select>-->
 
     <!--修改订单状态-->
     <update id="updatePurchase" parameterType="com.huzi.domain.purchase.PurchaseOrder">

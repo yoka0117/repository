@@ -3,7 +3,7 @@ package com.huzi.domain.Warehouse;
 public class Warehouse {
     private int warehouseId;
     private String warehouseName;
-    private int regionId;
+
 
     public int getWarehouseId() {
         return warehouseId;
@@ -21,11 +21,5 @@ public class Warehouse {
         this.warehouseName = warehouseName;
     }
 
-    public int getRegionId() {
-        return regionId;
-    }
 
-    public void setRegionId(int regionId) {
-        this.regionId = regionId;
-    }
 }

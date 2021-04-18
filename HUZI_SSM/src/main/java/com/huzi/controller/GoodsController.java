@@ -2,6 +2,7 @@ package com.huzi.controller;
 
 import com.huzi.domain.product.Goods;
 import com.huzi.service.GoodsService;
+import com.huzi.service.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ public class GoodsController {
 
     @Autowired
     private GoodsService goodsService;
+
 
     //1添加Goods商品ok
     @RequestMapping("/insertGoods.do" )
