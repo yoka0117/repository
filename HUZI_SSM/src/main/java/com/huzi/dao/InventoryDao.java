@@ -28,6 +28,10 @@ public interface InventoryDao {
     int updateInventoryCut(InventoryParam inventoryParam);
 
 
+    //增加库存
+    int updateInventoryAdd(InventoryParam inventoryParam);
+
+
 
 
 }

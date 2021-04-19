@@ -49,4 +49,10 @@
         update t_inventory set  inventory_real=inventory_real - #{realInventoryAdd}
         where sku_id = #{skuId} and warehouse_id = #{warehouseId} and inventory_real - #{realInventoryAdd} >=0
     </update>
+
+    <!--增加real库存(通过skuId and warehouseId)-->
+    <update id="updateInventoryAdd" parameterType="com.huzi.domain.Warehouse.InventoryParam">
+        update t_inventory set  inventory_real=inventory_real + #{realInventoryAdd}
+        where sku_id = #{skuId} and warehouse_id = #{warehouseId}
+    </update>
 </mapper>

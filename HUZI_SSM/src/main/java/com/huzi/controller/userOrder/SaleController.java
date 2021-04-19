@@ -107,4 +107,29 @@ private WarehouseService warehouseService;
         return mv;
 
     }
+
+
+
+
+    //取消预订
+    @RequestMapping("/CancelReserve.do")
+    public ModelAndView cancelReserve(Integer orderId){
+        ModelAndView mv = new ModelAndView();
+        String tip = "";
+
+        Order order = new Order();
+        order.setOrderId(orderId);
+        int result = orderReserveSerivce.cancelReserve(order);
+        if (result == 1){
+            tip = "此order不存在";
+        }else if(result == 2){
+            tip = "此order状态为init";
+        }else if (result == 3){
+            tip = "取消预订成功";
+        }
+
+        mv.addObject("result",tip);
+        mv.setViewName("result");
+        return mv;
+    }
 }
