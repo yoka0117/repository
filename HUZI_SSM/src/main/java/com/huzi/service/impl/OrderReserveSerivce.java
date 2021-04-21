@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface OrderReserveSerivce {
 
-    public int reserveOne(Order order) ;
+    public int reserveOne(Integer orderId) ;
 
 
     public int cancelReserve(Order order);

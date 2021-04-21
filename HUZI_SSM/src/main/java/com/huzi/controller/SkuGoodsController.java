@@ -1,6 +1,7 @@
 package com.huzi.controller;
 
 import com.huzi.domain.product.SkuGoods;
+import com.huzi.service.CommonResult;
 import com.huzi.service.SkuGoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,9 +25,16 @@ public class SkuGoodsController {
 
         List<SkuGoods>  list = skuGoodsService.selectAll();
 
-        mv.addObject("result",list);
-        mv.setViewName("result");
 
+
+        CommonResult result = new CommonResult();
+        result.setCode("SUCCESS");
+        result.setMsg("成功");
+        result.setResult(true);
+        result.setData(list);
+
+        mv.addObject("result",result);
+        mv.setViewName("result");
         return mv;
     }
 }

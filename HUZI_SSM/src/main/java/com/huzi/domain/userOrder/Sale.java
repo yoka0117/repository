@@ -7,6 +7,17 @@ public class Sale {
     private Integer orderId;
     private Integer userId;
     private Integer shopId;
+    private String saleState;
+    private Integer already;
+
+
+    public Integer getAlready() {
+        return already;
+    }
+
+    public void setAlready(Integer already) {
+        this.already = already;
+    }
 
     public Integer getSaleId() {
         return saleId;
@@ -54,5 +65,13 @@ public class Sale {
 
     public void setShopId(Integer shopId) {
         this.shopId = shopId;
+    }
+
+    public String getSaleState() {
+        return saleState;
+    }
+
+    public void setSaleState(String saleState) {
+        this.saleState = saleState;
     }
 }

@@ -31,12 +31,15 @@
         values(#{skuId},#{warehouseId},#{physicalInventory},#{realInventory})
     </insert>
 
-    <!--根据warehouseid和skuid查询-->
-    <select id="selectInventoryId" resultType="java.lang.Integer" >
-            select inventory_id
+    <!--根据warehouseId和skuId查询-->
+    <select id="selectInventory" resultMap="inventoryMap" >
+            select inventory_id,sku_id,warehouse_id,inventory_physical,inventory_real
             from t_inventory
             where sku_id = #{skuId} and  warehouse_id = #{warehouseId}
     </select>
+
+
+
     <!--2增加库存-->
     <update id="updateInventory" parameterType="com.huzi.domain.Warehouse.InventoryParam">
          update t_inventory set inventory_physical =inventory_physical + #{physicalInventoryAdd},
@@ -45,7 +48,7 @@
     </update>
 
     <!--减少real库存(通过skuId and warehouseId)-->
-    <update id="updateInventoryCut" parameterType="com.huzi.domain.Warehouse.InventoryParam">
+    <update id="updateInventoryCutReal" parameterType="com.huzi.domain.Warehouse.InventoryParam">
         update t_inventory set  inventory_real=inventory_real - #{realInventoryAdd}
         where sku_id = #{skuId} and warehouse_id = #{warehouseId} and inventory_real - #{realInventoryAdd} >=0
     </update>
@@ -53,6 +56,12 @@
     <!--增加real库存(通过skuId and warehouseId)-->
     <update id="updateInventoryAdd" parameterType="com.huzi.domain.Warehouse.InventoryParam">
         update t_inventory set  inventory_real=inventory_real + #{realInventoryAdd}
+        where sku_id = #{skuId} and warehouse_id = #{warehouseId}
+    </update>
+
+    <!--减少physical库存(通过skuId and warehouseId)-->
+    <update id="updateInventoryCutPhysical" parameterType="com.huzi.domain.Warehouse.InventoryParam">
+        update t_inventory set  inventory_physical=inventory_physical - #{physicalInventoryAdd}
         where sku_id = #{skuId} and warehouse_id = #{warehouseId}
     </update>
 </mapper>

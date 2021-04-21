@@ -101,7 +101,9 @@ private PurchaseOrderDao purchaseOrderDao;
         Inventory inventory = new Inventory();
         inventory.setSkuId(skuId);
         inventory.setWarehouseId(warehouseId);
-        return inventoryDao.selectInventoryId(inventory);
+        Inventory inventory1 = inventoryDao.selectInventory(inventory);
+        return inventory1.getInventoryId();
+
     }
 
     //添加库存

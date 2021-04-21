@@ -1,8 +1,11 @@
 package com.huzi.controller.userOrder;
 
 
+import com.huzi.common.PurchaseOrderStatus;
 import com.huzi.domain.Warehouse.WarehouseRegionId;
+import com.huzi.domain.purchase.OrderDetails;
 import com.huzi.domain.userOrder.Order;
+import com.huzi.domain.userOrder.OrderDelivery;
 import com.huzi.domain.userOrder.Sale;
 import com.huzi.service.*;
 import com.huzi.service.impl.OrderReserveSerivce;
@@ -58,7 +61,9 @@ private WarehouseService warehouseService;
                 sale.setShopId(shopId);
                 sale.setOrderId(orderId);
                 sale.setUserId(userId);
+                sale.setSaleState(PurchaseOrderStatus.INIT.name());
                 saleList.add(sale);
+
             }
 
             //将List<Sale>丢给service
@@ -81,15 +86,14 @@ private WarehouseService warehouseService;
 
 
 
-    //预定库存
+    //预定库存(支持部分预订)
     @RequestMapping("/reserve.do")
     public ModelAndView reserve(Integer orderId){
         ModelAndView mv = new ModelAndView();
         String tip = null;
         int result = 0;
-            Order order = new Order();
-            order.setOrderId(orderId);
-            result = orderReserveSerivce.reserveOne(order);
+
+            result = orderReserveSerivce.reserveOne(orderId);
 
             if (result == 1){
             tip = "order不存在";
@@ -101,6 +105,10 @@ private WarehouseService warehouseService;
                 tip = "库存不存在";
             }else if(result == 5 ){
                 tip = "预定成功";
+            }else if(result == 6 ){
+                tip = "real库存还没有上新";
+            }else if (result == 7){
+                tip = "此订单还有预约没有完全完成";
             }
         mv.addObject("result" , tip);
         mv.setViewName("result");
@@ -129,6 +137,47 @@ private WarehouseService warehouseService;
         }
 
         mv.addObject("result",tip);
+        mv.setViewName("result");
+        return mv;
+    }
+
+
+
+
+//预订成功的订单出库
+    @RequestMapping("/orderDelivery.do")
+    public ModelAndView orderDelivery(Integer orderId,String skuId,String warehouseId,String amount){
+        ModelAndView mv = new ModelAndView();
+        String result = "";
+        //将拿到的String转换成数组
+        String[] skuIds = skuId.split(",");
+        String[] warehouseIds = warehouseId.split(",");
+        String[] amounts = amount.split(",");
+
+        List<OrderDelivery> orderDeliveryList = new ArrayList<>();
+        for (int i = 0 ; i < skuIds.length ; i ++) {
+            OrderDelivery orderDelivery = new OrderDelivery();
+            orderDelivery.setSkuId(Integer.parseInt(skuIds[i]));
+            orderDelivery.setAmount(Integer.parseInt(amounts[i]));
+            orderDelivery.setWarehouseId(Integer.parseInt(warehouseIds[i]));
+            orderDeliveryList.add(orderDelivery);
+        }
+
+        int tip = orderService.orderDelivery(orderId,orderDeliveryList);
+
+        if (tip == 0){
+            result = "成功出库";
+        }else if (tip == 1){
+            result="order订单不存在";
+        }
+        else if (tip == 2){
+            result = "订单状态不属于预订成功";
+        }
+        else if (tip == 3){
+            result = "出货单与详情单不同";
+        }
+
+        mv.addObject("result",result);
         mv.setViewName("result");
         return mv;
     }

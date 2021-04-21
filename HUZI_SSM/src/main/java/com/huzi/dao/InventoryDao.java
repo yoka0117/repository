@@ -20,18 +20,23 @@ public interface InventoryDao {
 
 
     //通过skuid+仓库id查库存表id
-    Integer selectInventoryId(Inventory inventory);
+    Inventory selectInventory(Inventory inventory);
 
 
 
-    //扣除库存
-    int updateInventoryCut(InventoryParam inventoryParam);
+
+    //扣除库存(real)
+    int updateInventoryCutReal(InventoryParam inventoryParam);
+
+    //扣除库存（物理）
+    int updateInventoryCutPhysical(InventoryParam inventoryParam);
 
 
     //增加库存
     int updateInventoryAdd(InventoryParam inventoryParam);
 
 
-
+    //订单出库管理
+    Inventory selectInventoryBy(Inventory inventory);
 
 }

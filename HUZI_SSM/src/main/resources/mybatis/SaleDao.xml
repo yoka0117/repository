@@ -21,10 +21,14 @@
         <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="saleId">
             select LAST_INSERT_ID()
         </selectKey>
-        insert into t_sales(sku_id,amount,order_id,user_id,shop_id)
-        values(#{skuId},#{amount},#{orderId},#{userId},#{shopId})
+        insert into t_sales(sku_id,amount,order_id,user_id,shop_id,sale_state,already)
+        values(#{skuId},#{amount},#{orderId},#{userId},#{shopId},#{saleState},#{already})
     </insert>
 
+    <!--改变sale表状态-->
+    <update id="updateSaleState"  parameterType="com.huzi.domain.userOrder.Sale">
+        update t_sales set sale_state = #{saleState} , already = #{already} where sale_id = #{saleId}
+    </update>
 
 
     <resultMap id="saleMap" type="com.huzi.domain.userOrder.Sale">
@@ -34,10 +38,18 @@
         <result column="user_id" property="userId"></result>
         <result column="order_id" property="orderId"></result>
         <result column="shop_id" property="shopId"></result>
+        <result column="sale_state" property="saleState"></result>
+        <result column="already" property="already"></result>
     </resultMap>
 
-    <select id="selectSale" parameterType="com.huzi.domain.userOrder.Sale" resultMap="saleMap">
-        select sale_id,sku_id,amount,user_id,order_id,shop_id from t_sales
+    <select id="selectSaleByOrderId" parameterType="com.huzi.domain.userOrder.Sale" resultMap="saleMap">
+        select sale_id,sku_id,amount,user_id,order_id,shop_id,sale_state ,already from t_sales
         where order_id = #{orderId}
+    </select>
+
+
+    <select id="selectSaleBySkuIdAmount" resultMap="saleMap">
+        select sale_id,sku_id,amount,user_id,order_id,shop_id,sale_state ,already from t_sales
+        where sku_id = #{skuId} and amount = #{amount} and order_id = #{orderId}
     </select>
 </mapper>

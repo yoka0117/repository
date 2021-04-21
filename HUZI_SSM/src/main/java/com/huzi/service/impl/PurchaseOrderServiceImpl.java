@@ -166,7 +166,8 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         Inventory inventory = new Inventory();
         inventory.setSkuId(skuId);
         inventory.setWarehouseId(warehouseId);
-        return inventoryDao.selectInventoryId(inventory);
+        Inventory inventory1 = inventoryDao.selectInventory(inventory);
+        return inventory1.getInventoryId();
     }
 
     //检查采购单状态

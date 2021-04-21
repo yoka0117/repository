@@ -11,11 +11,9 @@ import com.huzi.service.BusinessException;
 import com.huzi.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.HashMap;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
-import java.util.Map;
+
 
 
 @Service
@@ -29,15 +27,18 @@ public class OrderReserveSerivceImpl implements OrderReserveSerivce{
     @Autowired
     private InventoryDao inventoryDao;
 
-    public int reserveOne(Order order)  {
+    public int reserveOne(Integer orderId)  {
         int result =0;
         try {
 
-             result = orderService.reserve(order);
+             result = orderService.reserve(orderId);
 
         } catch (BusinessException e) {
             if("SHORTEGY".equals(e.code)){
                 //订单修改为缺货
+                Order order = new Order();
+                order.setOrderId(orderId);
+                orderDao.selectOrder(order);
                 order.setOrderState(PurchaseOrderStatus.LACK.name());
                 orderDao.updateOrder(order);
             }
@@ -48,6 +49,7 @@ public class OrderReserveSerivceImpl implements OrderReserveSerivce{
 
     //取消预订
     @Override
+    @Transactional
     public int cancelReserve(Order order) {
 
         Order od = orderDao.selectOrder(order);
@@ -66,7 +68,7 @@ public class OrderReserveSerivceImpl implements OrderReserveSerivce{
             //通过orderId，查找对应的产品数量amount
             Sale sale = new Sale();
             sale.setOrderId(od.getOrderId());
-            List<Sale> saleList = saleDao.selectSale(sale);
+            List<Sale> saleList = saleDao.selectSaleByOrderId(sale);
 
             for (Sale sales : saleList){
                 Integer skuId =  sales.getSkuId();
