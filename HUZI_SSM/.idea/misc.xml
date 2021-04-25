@@ -7,7 +7,19 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/../../../xxl-job-master/pom.xml" />
+        <option value="$PROJECT_DIR$/../../../资源文件/xxl-job-master/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/../../../xxl-job-master/pom.xml" />
+        <option value="$PROJECT_DIR$/../../../xxl-job-master/xxl-job-admin/pom.xml" />
+        <option value="$PROJECT_DIR$/../../../xxl-job-master/xxl-job-core/pom.xml" />
+        <option value="$PROJECT_DIR$/../../../xxl-job-master/xxl-job-executor-samples/pom.xml" />
+        <option value="$PROJECT_DIR$/../../../xxl-job-master/xxl-job-executor-samples/xxl-job-executor-sample-frameless/pom.xml" />
+        <option value="$PROJECT_DIR$/../../../xxl-job-master/xxl-job-executor-samples/xxl-job-executor-sample-springboot/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_13" default="false" project-jdk-name="jdk-13" project-jdk-type="JavaSDK" />

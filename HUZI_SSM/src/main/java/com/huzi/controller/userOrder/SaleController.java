@@ -87,6 +87,7 @@ private WarehouseService warehouseService;
 
 
     //预定库存(支持部分预订)
+
     @RequestMapping("/reserve.do")
     public ModelAndView reserve(Integer orderId){
         ModelAndView mv = new ModelAndView();
